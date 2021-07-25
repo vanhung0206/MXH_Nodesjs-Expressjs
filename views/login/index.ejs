@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/logincss/login.css">
+</head>
+<body>
+    <div class="header" style="background-image: url(/images/loginimg/background.jpg); width: 55vw;height: 100vh; background-repeat: no-repeat;background-position: center;">
+        <p class="header-hello">WELCOME TO</p>
+        <P class="header-title">HTH</P>
+        <p class="text">
+            <!-- <span class="text-1">The next generation WordPress+Buddypress social community!</span> -->
+            Connect with your friends with full profiles, reactions, groups, badges, quests, ranks, credits and 
+            <span class="text-2">much more to come!</span>
+        </p>
+    </div>
+    <div class="main">
+      <a href="/" class="back-home">
+        <i class="far fa-arrow-alt-circle-left"></i>
+        <span>Back to HTH</span>
+      </a>
+      <div class="turn-pick">
+        <h3 class="resgiter active">RESGITER</h3>
+        <h3 class="login">LOGIN</h3>
+      </div>
+        <form action="/login/register" method="POST" class="form"  id="form-1">
+          <p class="desc">WELCOME TO HTH ❤️</p>
+      
+          <div class="spacer"></div>
+      
+          <div class="form-group">
+            <label for="fullname" class="form-label">Username</label>
+            <input id="fullname" name="name" type="text" placeholder="VD: Tống Đức Hoàng" class="form-control">
+            <span class="form-message"></span>
+          </div>
+      
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input id="email" name="email" type="text" placeholder="VD: email@domain.com" class="form-control">
+            <span class="form-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input id="password" name="password" type="password" placeholder="Password" class="form-control">
+            <span class="form-message"></span>
+          </div>
+      
+          <div class="form-group">
+            <label for="password_confirmation" class="form-label">Re-type password</label>
+            <input id="password_confirmation" placeholder="Re-type password" type="password" class="form-control">
+            <span class="form-message"></span>
+          </div>
+      
+          <input class="form-submit" type="submit" value="RESGITER"></input>
+        </form>
+        <form action="/login" method="POST" class="form hide-show" id="form-2">
+          <p class="desc">WELCOME TO HTH ❤️</p>
+      
+          <div class="spacer"></div>
+
+          <div class="form-group">
+            <label for="email-1" class="form-label">Email</label>
+            <input id="email-1" name="email" type="text" placeholder="VD: email@domain.com" class="form-control">
+            <span class="form-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="password-1" class="form-label">Password</label>
+            <input id="password-1" name="password" type="password" placeholder="Password" class="form-control">
+            <span class="form-message"></span>
+          </div>
+      
+          <input class="form-submit-1" type="submit" value="LOGIN"></input>
+        </form>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-primary">
+            <h5 class="modal-title" id="exampleModalLabel">Register</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Đăng ký thành công!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="/javascripts/loginjs/login.js"></script>
+</body>
+</html>

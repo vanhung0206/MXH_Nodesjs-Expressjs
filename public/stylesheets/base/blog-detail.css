@@ -1,0 +1,335 @@
+
+/* modal react */
+.react-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.87);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+.react-box{
+    position: absolute;
+    background-color: rgb(44, 44, 44);
+    border-radius: 12px;
+    min-width: 484px;
+}
+.react-box__title{
+    padding: 16px 280px 16px 0;
+    border-bottom: 1px solid #8b8b8b;
+    max-height: 58px;
+}
+.react-box__title-list{
+    display: flex;
+    justify-content: space-around;
+}
+.react-box__title-item{
+    color: #fff;
+    padding: 0 4px 22px 4px;
+    display: flex;
+    align-items: center;
+}
+.react-box__title-item i{
+    font-size: 18px;
+}
+.react-quantity{
+    margin:0 0 1px 6px;
+}
+.user-info-blog{
+    display: flex;
+}
+.user-info__img{
+    object-fit: cover;
+    height: 44px;
+    border: solid 3px #409ae4;
+    width: 44px;
+    border-radius: 50%;
+}
+.user-info__list-blog{
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+}
+.user-info__list-nameblog{
+    font-weight: 500;
+    color: #fff;
+}
+.user-info__list-status{
+    margin-top: 8px;
+}
+.users-box__list{
+    padding: 8px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.users-box{
+    min-height: 400px;
+    padding: 12px 0;
+}
+.add-box{
+    padding: 8px 8px;
+    border-radius: 8px;
+    background-color: #8b8b8b;
+}
+.active-blog{
+    border-bottom: 2px solid #23d2e2;
+}
+.users-box__show{
+    display: none;
+}
+.react-modal__quite{
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 6px 8px;
+    border-radius: 50%;
+    background-color: #5d5d5d;
+}
+.react-modal__quite:hover{
+    background-color: #8b8b8b;
+}
+/* modal react */
+
+/* Blog Details */
+
+.post-open {
+    margin-bottom: 80px;
+}
+
+.post-open-cover {
+    width: 100%;
+    height: 560px;
+    background: url(https://odindesignthemes.com/vikinger-theme/wp-content/uploads/2020/09/witch_by_real_sonkes-d8hv0b1.jpg) center center / cover no-repeat;
+}
+
+.post-open-body{
+    width: 80%;
+    max-width: 100%;
+    margin: -220px auto 0;
+    padding-top: 90px;
+    border-radius: 12px;
+    background-color: var(--color-white);
+}
+
+.post-open-heading{
+    padding: 0 100px;
+}
+
+.post-open-timestamp{
+    color: #adafca;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.post-open-timestamp a{
+    color: #00c7d9;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.post-open-timestamp a:hover{
+    text-decoration: underline;
+}
+
+.post-open-title {
+    margin-top: 22px;
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1em;
+    color: #3e3f5e;
+}
+
+.post-open-content{
+    display: flex;
+    margin-top: 70px;
+    padding: 0 100px;
+}
+
+.post-open-content-sidebar{
+    width: 15%;
+    flex-shrink: 0;
+}
+
+.author-preview {
+    padding-right: 16px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.user-avatar {
+    display: block;
+    position: relative;
+    width: 60px;
+    height: 60px;
+}
+
+.user-avatar-newsfeed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    border: solid 3px #409ae4;
+    border-radius: 50%;
+}
+
+.user-status-title-medium{
+    margin-top: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.user-status-title-medium span a{
+    color: #424362;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.user-status-title-medium span a:hover{
+    text-decoration: underline;
+}
+
+.user-status-title-medium p{
+    margin-top: 5px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.post-open-content-body {
+    width: 85%;
+    padding-bottom: 20px;
+}
+
+.post-open-content-body p{
+    margin-top: 32px;
+    font-weight: 500;
+    line-height: 2em;
+    color: #3e3f5e;
+}
+
+.post-open-content-body > p:first-child{
+    margin-top: 0;
+}
+
+.post-open-content-body h3{
+    font-size: 2.2rem;
+    line-height: 1em;
+    margin: 60px 0 60px;
+    font-weight: 700;
+    color: #3e3f5e;
+}
+
+.tag-list{
+    margin-top: 60px;
+    display: flex;
+}
+
+.tag-item.secondary {
+    background-color: #615dfa;
+    transition: background-color .2s ease-in-out;
+}
+
+.tag-item {
+    margin: 12px 12px 0 0;
+    display: block;
+    height: 24px;
+    padding: 0 12px;
+    border-radius: 200px;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 24px;
+    text-decoration: none;
+}
+
+
+
+.content-actions{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin: 24px 24px 0 24px;
+    border-top: 1px solid #dbdbdb;
+    padding: 16px 0 16px;
+}
+
+.content-action{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.meta-line{
+    display: flex;
+    align-items: center;
+}
+
+.reaction-item-list{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+    margin-left: 5px;
+}
+
+.meta-line-list{
+
+}
+
+.meta-line-text{
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #3e3f5e;
+}
+
+.reaction-image {
+    width: 20px;
+    height: 20px;
+}
+
+.widget-box-bottom-sidebar {
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: transparent;
+    width: 80%;
+    margin: auto;
+    margin-top: 80px;
+}
+
+.section-pretitle {
+    color: #8f91ac;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 1em;
+}
+
+.section-title{
+    margin-top: 8px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #3e3f5e;
+    line-height: 1em;
+}
+
+.posted-item-link-click {
+    cursor: pointer;
+}
+
+.post-preview-link {
+    cursor: pointer;
+}
+
+.main {
+    transition: all ease-in 0.5s;
+    animation: fade 0.5s ease-in;
+}

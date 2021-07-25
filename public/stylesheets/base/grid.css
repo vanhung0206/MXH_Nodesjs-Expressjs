@@ -1,0 +1,50 @@
+.grid{
+    max-width: 1184px;
+    width: 100%;
+    margin: 0 auto;
+}
+.wide{
+    display: flex;
+}
+.grid__row{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -5px;
+    margin-right: -5px;
+}
+/* test */
+.grid__column-2{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 16.6667%;
+}
+.grid__column-3{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 25%;
+}
+.grid__column-4{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 33.3333%;
+}
+.grid__column-2-4{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 20%;
+}
+.grid__column-6{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 50%;
+}
+.grid__column-10{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 83.3334%;
+}
+.grid__column-12{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 100%;
+}
