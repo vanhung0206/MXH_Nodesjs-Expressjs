@@ -11,6 +11,12 @@ const users = new mongoose.Schema(
             type: String,
             required: true,
         },
+        status: {
+            type: Number,
+            min: -1,
+            max: 2,
+            default: 0,
+        },
         password: {
             type: String,
             required: true,

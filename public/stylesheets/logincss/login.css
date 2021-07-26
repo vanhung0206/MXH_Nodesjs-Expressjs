@@ -228,3 +228,15 @@ body {
 .close span {
     font-size: 24px;
 }
+
+.alert-error {
+    font-size: 15px;
+    background-color: #f8d7da;
+    border: 1px solid #9c1f1f;
+    padding: 6px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    color: #721c24;
+    display: flex;
+    justify-content: center;
+}

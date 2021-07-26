@@ -1,3 +1,5 @@
+
+// Middleware
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
@@ -7,6 +9,14 @@ var expressLayouts = require("express-ejs-layouts");
 var session = require("express-session");
 const MongoStore = require("connect-mongo");
 const fileUpload = require('express-fileupload');
+const nodemailer = require("nodemailer");
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv')
+dotenv.config();
+
+
+
+// Variable
 var authMiddleware = require("./midderware/authentication");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -16,6 +26,8 @@ var blogsRouter = require("./routes/blogs");
 var loginRouter = require("./routes/login");
 var logoutRouter = require("./routes/logout");
 var meRouter = require("./routes/me");
+var verifyRouter = require("./routes/verify");
+
 
 
 // connect db
@@ -32,7 +44,7 @@ app.use(
         store: MongoStore.create({
             mongoUrl: "mongodb://localhost/socialnetwork",
         }),
-        cookie: { secure: false, maxAge: 3000000 },
+        cookie: { secure: false, maxAge: 30000000 },
     })
 );
 // view engine setup
@@ -50,6 +62,7 @@ app.use(fileUpload({
     limits: { fileSize: 50 * 1024 * 1024 },
   }));
 app.use("/login", loginRouter);
+app.use("/verify", verifyRouter);
 app.use(authMiddleware);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);

@@ -26,33 +26,41 @@ class meController {
             tempPath = tempPath.join("\\")
             uploadPath =  tempPath + "/"+ sampleFile.name;
             sampleFile.mv(uploadPath, function (err) {
-                if (err) return res.json({err: "Unknow Error"}) 
+                if (err) 
+                    return res.json({err: "Unknow Error"}) 
                 else {
+                    req.session.userInfo = req.body;
                     req.session.userInfo.image = "/images/avatars/"+ sampleFile.name;
-                    
-                    usersModal.findOneAndUpdate({email: req.body.email },  req.session.userInfo, { new: true })
-                        .then((data) => {
-                            req.session.userInfo = data;
-                            res.locals.userInfo = data;
-                            res.render("me/editlayout", {
-                                layout: "index",
-                                title: "me",
-                                success: true,
-                            });
-                        })
-                        .catch(err => res.json({err: "Unknow Error"}));
+                    req.session.save( err => {
+                        usersModal.findOneAndUpdate({email: req.body.email },  req.session.userInfo, { new: true })
+                            .then( (data) => {
+                                req.session.userInfo = data;
+                                req.session.save(function(err) {
+                                    res.locals.userInfo = data;
+                                    res.render("me/editlayout", {
+                                        layout: "index",
+                                        title: "me",
+                                        success: true,
+                                    });
+                                  })
+                            })
+                            .catch(err => res.json({err: "Unknow Error"}));
+                    })
                 }
             });
         } else {
             usersModal.findOneAndUpdate({email: req.body.email },  req.body , { new: true } )
                 .then((data) => {
                     req.session.userInfo = data;
-                    res.locals.userInfo = data;
-                    res.render("me/editlayout", {
-                        layout: "index",
-                        title: "me",
-                        success: true,
-                    });
+                    req.session.save(function(err) {
+                        // session saved
+                        res.locals.userInfo = data;
+                        res.render("me/editlayout", {
+                            layout: "index",
+                            title: "me",
+                            success: true,
+                        });
+                      })
                 })
                 .catch(err => res.json({err: "Unknow Error"}));
         }

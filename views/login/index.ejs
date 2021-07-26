@@ -14,7 +14,6 @@
         <p class="header-hello">WELCOME TO</p>
         <P class="header-title">HTH</P>
         <p class="text">
-            <!-- <span class="text-1">The next generation WordPress+Buddypress social community!</span> -->
             Connect with your friends with full profiles, reactions, groups, badges, quests, ranks, credits and 
             <span class="text-2">much more to come!</span>
         </p>
@@ -30,7 +29,7 @@
       </div>
         <form action="/login/register" method="POST" class="form"  id="form-1">
           <p class="desc">WELCOME TO HTH ❤️</p>
-      
+          
           <div class="spacer"></div>
       
           <div class="form-group">
@@ -61,9 +60,13 @@
         </form>
         <form action="/login" method="POST" class="form hide-show" id="form-2">
           <p class="desc">WELCOME TO HTH ❤️</p>
-      
+          
           <div class="spacer"></div>
-
+          <% if( locals.err ) { %>
+            <div class="alert-error"  role="alert">
+                <%=locals.err%>
+             </div>
+         <% } %>
           <div class="form-group">
             <label for="email-1" class="form-label">Email</label>
             <input id="email-1" name="email" type="text" placeholder="VD: email@domain.com" class="form-control">
@@ -90,7 +93,8 @@
             </button>
           </div>
           <div class="modal-body">
-            Đăng ký thành công!
+            We have sent an email to the registered account. <br>
+            Please access your gmail to proceed with account activation!
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -102,5 +106,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="/javascripts/loginjs/login.js"></script>
+    <script>
+      $(document).ready(() => {
+        var err = <%-JSON.stringify(locals.err)%>;
+        console.log(err);
+        if (err) {
+          $(".login").addClass("active");
+          $("#form-2").removeClass("hide-show");
+          $(".resgiter").removeClass("active");
+          $("#form-1").addClass("hide-show");
+        };
+        function hideErr() {
+          $(".alert-error").hide();
+        }
+        $("#email-1").keyup(function() {
+            hideErr();
+        })
+
+        $("#password-1").keyup(function() {
+            hideErr();
+        })  
+
+      });
+      
+
+    </script>
 </body>
 </html>

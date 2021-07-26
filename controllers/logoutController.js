@@ -1,5 +1,6 @@
 const { json } = require("express");
 const users = require("../models/users");
+
 // var session = require("express-session");
 
 class logoutController {
