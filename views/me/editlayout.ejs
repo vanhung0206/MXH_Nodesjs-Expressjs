@@ -1,0 +1,113 @@
+<div class="container">
+    <div class="contact">
+        <% if ( locals.success) { %>
+            <div class="alert-success" role="alert">
+                Successfully Updated!
+            </div>
+        <% } %>
+        <h2 class="contact-heading">Edit Profile</h2>
+        <form
+            action="/me/edit"
+            method="POST"
+            class="contact-form"
+            enctype="multipart/form-data"
+            autocomplete="off"
+        >
+            <div class="contact-info">
+                <div class="contact-avatar">
+                    <img
+                        <% if (userInfo.image) { %>
+                            src="<%=userInfo.image%>"
+                        <% } else { %>
+                            src="/images/loginimg/background.jpg" 
+                        <% } %>
+                        alt="" />
+                    <i class="fa fa-check icon"></i>
+                    <div class="file-input">
+                        <input
+                            accept="image/*"
+                            name="image"
+                            type="file"
+                            id="file"
+                            class="file"
+                        />
+                        <label for="file"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form-group">
+                <label for="disabledTextInput" class="contact-form-label"
+                    >Your Email *</label
+                >
+                <input
+                    id="disabledTextInput"
+                    name="email"
+                    type="email"
+                    required
+                    class="contact-form-input"
+                    disabled
+                    
+                    value="<%-userInfo.email%>"
+                />
+            </div>
+            <div class="contact-form-group">
+                <label for="name" class="contact-form-label">Your Name *</label>
+                <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    class="contact-form-input"
+                    value="<%-userInfo.name%>"
+                    required
+                />
+            </div>
+
+            <div class="contact-form-group">
+                <label for="address" class="contact-form-label">Address </label>
+                <input
+                    id="address"
+                    name="address"
+                    type="text"
+                    required
+                    class="contact-form-input"
+                    <% if (userInfo.address) { %>
+                        value="<%-userInfo.address%>"
+                    <% } %>
+                />
+            </div>
+            <div class="contact-form-group">
+                <label for="phone" class="contact-form-label"
+                    >Your phone
+                </label>
+                <input
+                    id="phone"
+                    name="phone"
+                    type="number"
+                    required
+                    class="contact-form-input"
+                    <% if (userInfo.phone) { %>
+                        value="<%-userInfo.phone%>"
+                    <% } %>
+                />
+            </div>
+            <button type="submit" class="contact-form-submit">UPDATE</button>
+        </form>
+    </div>
+</div>
+<script>
+    const file = document.querySelector("#file");
+    file.addEventListener("change", (e) => {
+        // Get the selected file
+        const file1 = e.target.files;
+        const [file] = e.target.files;
+        let imgAvatar = document.querySelector(".contact-avatar img");
+        let typeFile = file.type.split("/").shift();
+        if (typeFile === "image") {
+            imgAvatar.src = URL.createObjectURL(file);
+        }
+    });
+
+    $(".contact-form").submit(function(e){
+        $("#disabledTextInput").removeAttr("disabled");
+    })
+</script>

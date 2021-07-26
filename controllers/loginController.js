@@ -39,19 +39,10 @@ class loginController {
         var data = await users.findOne({ email: userData.email });
         if (data && data.password === userData.password) {
             req.session.userInfo = data;
-            res.json(req.session);
+            res.redirect("/");
         } else {
             res.json({ err: "Email or Password Invalid" });
         }
-    }
-    //[GET] /logout
-    logout(req, res, next) {
-        req.session.destroy((err) => {
-            if (err) next();
-            else {
-                res.redirect("/login");
-            }
-        });
     }
 }
 

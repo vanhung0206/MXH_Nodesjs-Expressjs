@@ -6,6 +6,8 @@ var logger = require("morgan");
 var expressLayouts = require("express-ejs-layouts");
 var session = require("express-session");
 const MongoStore = require("connect-mongo");
+const fileUpload = require('express-fileupload');
+var authMiddleware = require("./midderware/authentication");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var membersRouter = require("./routes/members");
@@ -13,6 +15,8 @@ var groupsRouter = require("./routes/groups");
 var blogsRouter = require("./routes/blogs");
 var loginRouter = require("./routes/login");
 var logoutRouter = require("./routes/logout");
+var meRouter = require("./routes/me");
+
 
 // connect db
 var db = require("./config/db");
@@ -28,7 +32,7 @@ app.use(
         store: MongoStore.create({
             mongoUrl: "mongodb://localhost/socialnetwork",
         }),
-        cookie: { secure: false, maxAge: 600000 },
+        cookie: { secure: false, maxAge: 3000000 },
     })
 );
 // view engine setup
@@ -42,19 +46,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(fileUpload({
+    limits: { fileSize: 50 * 1024 * 1024 },
+  }));
 app.use("/login", loginRouter);
-app.use(function (req, res, next) {
-    if (req.session.userInfo) next();
-    else {
-        res.redirect("/login");
-    }
-});
+app.use(authMiddleware);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/members", membersRouter);
 app.use("/groups", groupsRouter);
 app.use("/blogs", blogsRouter);
 app.use("/logout", logoutRouter);
+app.use("/me", meRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

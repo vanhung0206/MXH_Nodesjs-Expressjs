@@ -72,14 +72,40 @@
         </div>
     </div>
     <div class="header-actions header-logins">
-        <div class="header-login">
-            <a
-                href="/login"
-                style="display: flex; text-decoration: none"
-                class="header-login-buttom"
-            >
-                <span>Login</span>
-            </a>
+        <div class="dropdown">
+            <div class="dropdown__select">
+                <div class="avatar-title mr-2"><%-userInfo.name%></div>
+
+                <div class="avatar">
+                    <img 
+                        <% if (userInfo.image) { %>
+                            src="<%=userInfo.image%>"
+                        <% } else { %>
+                            src="/images/loginimg/background.jpg" 
+                        <% } %>
+                         alt="" 
+                    />
+                    <i class="fa fa-check icon"></i>
+                </div>
+            </div>
+            <ul class="dropdown__list">
+                <li class="dropdown__item">
+                    <span class="dropdown__text">New project</span>
+                    <i class="fa fa-plus-circle dropdown__icon"></i>
+                </li>
+                <li class="dropdown__item">
+                    <span class="dropdown__text">View profile</span>
+                    <i class="fa fa-user dropdown__icon"></i>
+                </li>
+                <a href="/me/edit" class="dropdown__item">
+                    <span class="dropdown__text">Edit Profile</span>
+                    <i class="fa fa-cog dropdown__icon"></i>
+                </a>
+                <a href="/logout" class="dropdown__item">
+                    <span class="dropdown__text">Logout</span>
+                    <i class="far fa-sign-out-alt"></i>
+                </a>
+            </ul>
         </div>
     </div>
 </header>
@@ -166,3 +192,8 @@
 <div class="btn-top" style="display: none">
     <i class="fas fa-arrow-up"></i>
 </div>
+
+<script>
+    var x = <%-JSON.stringify(userInfo)%>
+    console.log(x);
+</script>
