@@ -3,6 +3,8 @@ const users = require("../models/users");
 const nodemailer = require("nodemailer");
 const {getToken, verifyToken} = require("../dao/token");
 var setHtml = require("../dao/getHtml")
+var getHtmlReset = require("../dao/getHtmlReset");
+const {encode, decode} = require("../dao/bcryptPassword");
 
 
 // var session = require("express-session");
@@ -40,6 +42,7 @@ class loginController {
     // [POST] /login/register
     async register(req, res, next) {
         var userData = req.body;
+        userData.password = encode(userData.password);
         var user = new users(userData);
         var data = await users.findOne({ email: userData.email });
         if (data) {
@@ -71,7 +74,8 @@ class loginController {
         var userData = req.body;
         var user = new users(userData);
         var data = await users.findOne({ email: userData.email });
-        if (data && data.password === userData.password) {
+        var passwordResult = decode( userData.password, data.password)
+        if (data && passwordResult) {
             if(data.status === 0) { 
                 res.render("login", {
                     layout: false,
@@ -93,6 +97,91 @@ class loginController {
             });
         }
     }
+
+    // [GET] /login/forgot password
+    forgot(req, res, next) {
+        res.render("login/forgot", {
+            layout: false,
+            title: "Forgot Password"
+        })
+    }
+    // [POST] /login/forgot password
+    resetPassword(req, res, next) {
+        users.findOne( { email: req.body.email} , (err, user) => {
+            if(err || !user) {
+                res.render("login/forgot", {
+                    layout: false,
+                    title: "Forgot Password",
+                    err: "Gmail does not exist in our system!",
+                })
+            } else {
+                const token = getToken({email: user.email});
+                let link = `http://127.0.0.1:3000/login/reset?token=${token}`;
+                let html = getHtmlReset(user.name , link)
+                sendmail( user.email , "[HTH] Reset your HTH account password" , html , (err1 , info) => {
+                    if(err1) {
+                        res.render("login/forgot", {
+                            layout: false,
+                            title: "Forgot Password",
+                            err: "An error occurred while sending mail!",
+                        })
+                    } 
+                    else {
+                        res.render("login/forgot", {
+                            layout: false,
+                            title: "Forgot Password",
+                            success: "We have sent an email to you. Please visit the link we sent to reset your password!",
+                        })
+                    }
+                })
+            }
+        })
+    }
+
+    //[GET] /login/reset
+    reset(req, res, next) {
+        if(req.query.token) {
+            verifyToken(req.query.token, (err, decoded) => {
+                if(err) res.status(404).send("Token Invalid!");
+                else {
+                    users.findOne({ email: decoded.email}, (err, user) => {
+                        if(err){
+                            res.status(404).send("Email Invalid");
+                        }
+                        else {
+                            res.render("login/reset", { 
+                                layout: false,
+                                title: "Reset Password",
+                                token: req.query.token,
+                            })
+                        }
+
+                    })
+                }
+            })
+        }else {
+           res.status(404).send("Token Invalid!")
+        }
+    } 
+
+    //[POST] /login/reset
+    saveResetPassword(req, res, next) {
+        verifyToken(req.body.token, (err, decoded) => {
+            if(err) res.status(404).send("Token Invalid!");
+            else if (req.body.password !== req.body.repassword || !req.body.password) res.status(404).send("Password Invalid!")
+            else {
+                users.findOneAndUpdate({email: decoded.email} , {password:  encode(req.body.password)}, {new: true} , (err, user) => {
+                    if (err) res.status(404).send("Error Unknown") 
+                    else {
+                        res.redirect("/");
+                    }
+
+                } )
+            }
+        })
+    } 
+
+
 }
 
 module.exports = new loginController();

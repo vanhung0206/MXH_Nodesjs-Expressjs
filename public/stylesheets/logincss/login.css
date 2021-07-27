@@ -240,3 +240,23 @@ body {
     display: flex;
     justify-content: center;
 }
+
+/* forgot password */
+
+.forgot-title {
+    width:100%;
+    padding: 10px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    background-color:  rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgb(119, 114, 114);
+}
+
+.forgot-title a {
+    display: block;
+    text-decoration: none;
+    font-size: 15px;
+    
+}

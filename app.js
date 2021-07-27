@@ -12,12 +12,12 @@ const fileUpload = require('express-fileupload');
 const nodemailer = require("nodemailer");
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv')
+var authMiddleware = require("./midderware/authentication");
 dotenv.config();
 
 
 
 // Variable
-var authMiddleware = require("./midderware/authentication");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var membersRouter = require("./routes/members");
@@ -61,6 +61,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(fileUpload({
     limits: { fileSize: 50 * 1024 * 1024 },
   }));
+
+
+
 app.use("/login", loginRouter);
 app.use("/verify", verifyRouter);
 app.use(authMiddleware);

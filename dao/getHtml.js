@@ -201,7 +201,7 @@ module.exports = function(email, name, link) {
                                                 >
                                                     <img
                                                         src="https://lh3.googleusercontent.com/yxezsb6C9SfKgHd0EcCpyZ7z5TyiUgE5XHRA5TXAcFu5RoVC6GpEf_3eyCXsbIWwVJBfSM6b08UX4fsWtLuTD7jOUztqhIET16F8uPuyQqy8_LTmhF822po-a_VSD2r8y-rea_TgBg=s40-p-k?source=screenshot.guru"
-                                                        alt="GitHub"
+                                                        alt="HTH"
                                                         width="32"
                                                         style="
                                                             box-sizing: border-box;
@@ -1550,7 +1550,7 @@ module.exports = function(email, name, link) {
                                     >
                                         You’re receiving this email
                                         because you recently created a
-                                        new GitHub account or added a
+                                        new HTH account or added a
                                         new email address. If this
                                         wasn’t you, please ignore this
                                         email.
