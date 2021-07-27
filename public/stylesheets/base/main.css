@@ -304,6 +304,7 @@
 .content {
     margin-left: var(--width-nav-short);
     margin-top: calc(var(--hight-header) + 30px);
+    margin-bottom: 50px;
     --color-body: #f8f8fb;
     /* position: relative; */
     /* top: var(--hight-header); */

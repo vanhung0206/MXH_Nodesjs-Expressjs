@@ -1,6 +1,9 @@
+const { json } = require("express");
 const { copyFileSync } = require("fs");
 const { request } = require("https");
 var path = require("path");
+const {encode, decode} = require("../dao/bcryptPassword");
+const users = require("../models/users");
 const usersModal = require("../models/users");
 
 
@@ -13,7 +16,62 @@ class meController {
         });
         // res.json(res.locals);
     }
+    // [GET] /me/edit/password
+    changpassword(req, res, next) {
+        res.render("me/changepassword", {
+            layout: "index",
+            title: "me", 
+        });
+        // res.json(res.locals);
+    }
+    // [POST] /me/edit/password
+    updatepassword(req, res, next) {
+        // res.json(req.session.userInfo.password);
+        var comparPassword = decode(req.body.currentPassword, req.session.userInfo.password);
+        if (!comparPassword) {
+            res.render("me/changepassword", {
+                layout: "index",
+                title: "Change password",
+                err: "Password Invalid!" 
+            });
+        }else if( req.body.password !== req.body.repassword || !req.body.password) {
+            res.render("me/changepassword", {
+                layout: "index",
+                title: "Change password",
+                err: "New Password Invalid!" 
+            });
+        } else {
+            var newPassword = encode(req.body.password);
+            users.findOneAndUpdate( {email: req.session.userInfo.email }, {password: newPassword} , {new: true} , (err1, user) => {
+                if(err1) {
+                    res.render("me/changepassword", {
+                        layout: "index",
+                        title: "Change password",
+                        err: err1 
+                    });
+                } else {
+                    req.session.userInfo = user;
+                    req.session.save( err3 => {
+                        if (err3) {
+                            res.render("me/changepassword", {
+                                layout: "index",
+                                title: "Change password",
+                                err: err3 
+                            });
+                        } else {
+                            res.render("me/changepassword", {
+                                layout: "index",
+                                title: "Change password",
+                                success: "Successfully Changed!" 
+                            });
+                        }
+                    })
+                }
+            })
+        }
+    }
 
+    
     // [POST] /me/edit
     update(req, res, next) {
         let sampleFile;

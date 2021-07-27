@@ -64,6 +64,7 @@ $(document).ready(function () {
             $(this).next().text("");
         }
     });
+    $(".loading-modal").hide();
     $(".form-submit").click(function (e) {
         if ($("#fullname").val() == "") {
             $("#fullname").next().text("Please enter this field");
@@ -99,6 +100,7 @@ $(document).ready(function () {
             $("#password").next().text() == "" &&
             $("#password_confirmation").next().text() == "";
         if (boolean) {
+            $(".loading-modal").show();
             let data = $("form[id=form-1]").serializeArray();
             let dataObj = {};
             data.forEach((item) => {
@@ -107,6 +109,7 @@ $(document).ready(function () {
             console.log(dataObj);
             $.post("/login/register", dataObj)
                 .then((resData) => {
+                    $(".loading-modal").hide();
                     if (resData.err) {
                         $("#email").next().text(resData.err);
                     } else {
@@ -118,6 +121,7 @@ $(document).ready(function () {
                     }
                 })
                 .catch((err) => {
+                    $(".loading-modal").hide();
                     console.log(err);
                 });
         }

@@ -742,6 +742,10 @@ button {
     line-height: 1.6;
 }
 .contact-form-submit {
+    text-align: center;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
     color: white;
     padding: 1.5rem;
     width: 100%;
@@ -898,5 +902,14 @@ button {
     top: 50%;
     opacity: 1;
     visibility: visible;
+}
+
+.label-change-password {
+    display: flex;
+    margin: 25px auto 0;
+    width: 100%;
+    font-size: 16px;
+    color: #113486;
+    justify-content: center;
 }
 
