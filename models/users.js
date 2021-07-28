@@ -34,6 +34,10 @@ const users = new mongoose.Schema(
             type: String,
             maxLength: 1000,
         },
+        logoutAt: { 
+            type: Date,
+            default: Date.now 
+        }
     },
     {
         timestamps: true,

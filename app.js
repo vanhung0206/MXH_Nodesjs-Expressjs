@@ -44,7 +44,7 @@ app.use(
         store: MongoStore.create({
             mongoUrl: "mongodb://localhost/socialnetwork",
         }),
-        cookie: { secure: false, maxAge: 30000000 },
+        cookie: { secure: false, maxAge: 300000000 },
     })
 );
 // view engine setup
