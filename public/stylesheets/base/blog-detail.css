@@ -25,7 +25,7 @@
 }
 .react-box__title-list{
     display: flex;
-    justify-content: space-around;
+    padding-left: 30px;
 }
 .react-box__title-item{
     color: #fff;

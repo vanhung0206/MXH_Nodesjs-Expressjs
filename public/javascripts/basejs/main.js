@@ -9,9 +9,7 @@ $(document).ready(function () {
         $(".content").toggleClass("content-warp");
     });
     // Like
-    $(".content-action.content-action__react").click(function () {
-        $(this).toggleClass("color-blue");
-    });
+    
     $(".members-filters__grids-icon").click(function () {
         $(".members-filters__grids-icon").removeClass("active");
         $(this).addClass("active");

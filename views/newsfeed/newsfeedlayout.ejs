@@ -103,12 +103,12 @@
             </div>
             <% if(locals.posts && locals.posts[0]) { 
                 posts.forEach( post => { %>
-                    <div class="widget-box media">
+                    <div class="widget-box media" >
                         <div class="widget-box-status">
                             <div class="user-status">
                                 <div class="user-status__avatar">
                                     <img
-                                        src="<%=post.image%>"
+                                        src="<%=post.imgUser%>"
                                         alt=""
                                     />
                                 </div>
@@ -122,24 +122,75 @@
                             </div>
                             <p class="user-status-text"><%=post.content%></p>
                         </div>
-                        <img
-                            style="max-width: 100%"
-                            src="<%=post.image%>"
-                            alt=""
-                        />
+                        <%if(post.image){ %>
+                            <img
+                                style="max-width: 100%"
+                                src="<%=post.image%>"
+                                alt=""
+                            />
+                        <% } %>
                         <div class="content-actions">
-                            <div class="content-action content-action__react">
-                                <i class="far fa-thumbs-up"></i>
-                                <span class="content-action-text">React</span>
-                                <span class="content-action-count"><%=post.react.length%></span>
+                            <div class="content-action content-action__react <% if(post.isLike == 1) { %> color-blue  <% } %>  ">
+                                <div class="content-action-icon-like like-ajax" value-id="<%=post._id%>">
+                                    <i class="far fa-thumbs-up"></i>
+                                    <span class="content-action-text">React</span>
+                                </div>
+                                <span  class="content-action-count count-liked"><%=post.react.length%></span>
                             </div>
-                            <div class="content-action">
+                            <div class="content-action comment-ajax" id-value=<%=post._id%> >
                                 <i class="far fa-comment-alt"></i>
                                 <span class="content-action-text">Comment</span>
+                                <span class="content-action-count count-comment"><%=post.comments.length%></span>
                             </div>
                             <div class="content-action">
                                 <i class="fas fa-share"></i>
                                 <span class="content-action-text">Share</span>
+                            </div>
+                        </div>
+                        <div class="comment-container">
+                            <div class="comment__list hidden">
+                                <div class="comment__item">
+                                    <div class="comment__item__wrap">
+                                        <img src="<%=locals.userInfo.image%>" alt="" class="comment__item__logo">
+                                        <div class="comment__item__text">
+                                            <a href class="comment__item__text__heading">
+                                                Nguyễn Văn Hưng
+                                            </a>
+                                            <span class="comment__item__text__content">
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <span class="comment__item__time">
+                                        1 second ago
+                                    </span>
+                                </div>
+                                <div class="comment__item">
+                                    <div class="comment__item__wrap">
+                                        <img src="<%=locals.userInfo.image%>" alt="" class="comment__item__logo">
+                                        <div class="comment__item__text">
+                                            <a class="comment__item__text__heading">
+                                                Nguyễn Văn Hưng
+                                            </a>
+                                            <span class="comment__item__text__content">
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <span class="comment__item__time">
+                                        1 second ago
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-comment hidden">
+                            <div class="comment__item">
+                                <div class="comment__item__wrap">
+                                    <img src="<%=locals.userInfo.image%>" alt="" class="comment__item__logo">
+                                    <div class="comment__item__text">
+                                        <span class="textarea" role="textbox" contenteditable></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -218,7 +269,144 @@
         </div>
     </div>
 </div>
+
+<!-- React Modal -->
+<div class="react-modal">
+    <div class="react-box">
+        <div class="react-box__title">
+            <ul class="react-box__title-list">
+                <li class="react-box__title-item react-box__title-all active-blog">
+                    All: 2
+                </li>
+            </ul>
+        </div>
+        <div class="users-box users-box-all">
+            <div class="users-box__list">
+                <div class="user-info-blog">
+                    <img src="./images/117251156_780671119335149_3490588943834725576_o.jpg" alt="" class="user-info__img">
+                    <div class="user-info__list-blog">
+                        <a class="user-info__list-nameblog">Tống Hoàng</a>
+                    </div>
+                </div>
+                <div class="add-box">
+                    <i class="fas fa-user-plus"></i>
+                    <span class="add-title">Add Friend</span>
+                </div>
+            </div>
+            <div class="users-box__list">
+                <div class="user-info-blog">
+                    <img src="./images/5f6e4a8528f4e-bpfull.jpg" alt="" class="user-info__img">
+                    <div class="user-info__list-blog">
+                        <a class="user-info__list-nameblog">Nguyễn Hưng</a>
+                    </div>
+                </div>
+                <div class="add-box">
+                    <i class="fas fa-user-plus"></i>
+                    <span class="add-title">Add Friend</span>
+                </div>
+            </div>                                         
+        </div>
+        <div class="react-modal__quite ">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+</div>
+
 <script>
-    var posts = <%-JSON.stringify(locals.posts)%>
-    console.log(posts)
+    var posts = <%-JSON.stringify(locals.posts)%>;
+    var userInfo = <%-JSON.stringify(locals.userInfo)%>;
+    console.log(userInfo);
+
+    $(document).ready(function(){
+        // handle like, unlike
+        $(".like-ajax").click(function(){
+            const element = $(this);
+            const id = $(this).attr("value-id");
+            $.post("/like", { id  })
+                .done( data => {
+                    // element.next().text(data);
+                    // element.removeClass("like-ajax").addClass("unlike-ajax");
+                    if(data.isLiked == 1) {
+                        console.log($(".content-action.content-action__react"));
+                        $(".content-action.content-action__react").addClass("color-blue");
+                        
+                    } else {
+                        $(".content-action.content-action__react").removeClass("color-blue");
+                    }
+                    element.next().text(data.countLike);
+                    console.log(data);
+                })
+                .fail(error =>{
+                    console.log(error)
+                })
+        })
+
+        // Show modal liked 
+        $('.count-liked').click(function() {
+            const id = $(this).prev().attr("value-id");
+            $.get("/detailLiked", {id})
+                .done( datas => {
+                    let htmlUsers = datas.map((data) => {
+                        return `
+                            <div class="users-box__list">
+                                <div class="user-info-blog">
+                                    <img src="${data.image}" alt="" class="user-info__img">
+                                    <div class="user-info__list-blog">
+                                        <a class="user-info__list-nameblog">${data.name}</a>
+                                    </div>
+                                </div>
+                                <div class="add-box">
+                                    <i class="fas fa-user-plus"></i>
+                                    <span class="add-title">Add Friend</span>
+                                </div>
+                            </div>
+                        `
+                    })
+                    console.log(htmlUsers.join(""));
+                    $(".users-box.users-box-all").html(htmlUsers.join(''));
+                    $(".react-box__title-item.react-box__title-all").text(`All: ${datas.length}`) ;
+                    $(".react-modal").toggleClass('class-display-flex');
+                    
+                })
+                .fail(error =>{
+                    console.log(error);
+                })
+        })
+         
+        $(".comment-ajax").click(function(){
+            let element = $(this);
+            let container = element.parent().next(".comment-container");
+            $.post("/comment", {id: element.attr("id-value")})
+                .done(datas => {
+                    if(datas[0]) {
+                        var html = datas.map( data => `
+                        <div class="comment__list">
+                                <div class="comment__item">
+                                    <div class="comment__item__wrap">
+                                        <img src="${data.image}" alt="" class="comment__item__logo">
+                                        <div class="comment__item__text">
+                                            <a href="" class="comment__item__text__heading">
+                                                ${data.name}
+                                            </a>
+                                            <span class="comment__item__text__content">
+                                                ${data.content}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <span class="comment__item__time">
+                                        ${data.timeAgo}
+                                    </span>
+                                </div>
+                            </div>
+                        `).join("");
+                        container.html(html);
+                    }
+                    container.next(".input-comment").removeClass("hidden");
+                    $(".comment-ajax").unbind();
+
+                })
+                .fail(error => console.log(error))
+        })
+    })
+
 </script>

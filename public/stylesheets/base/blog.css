@@ -343,7 +343,6 @@
 }
 .react-box__title-list{
     display: flex;
-    justify-content: space-around;
 }
 .react-box__title-item{
     color: #fff;
