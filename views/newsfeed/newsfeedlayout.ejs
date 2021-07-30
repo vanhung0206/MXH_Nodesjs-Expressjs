@@ -147,6 +147,16 @@
                                 <span class="content-action-text">Share</span>
                             </div>
                         </div>
+                        <div class="input-comment hidden">
+                            <div class="comment__item">
+                                <div class="comment__item__wrap">
+                                    <img src="<%=locals.userInfo.image%>" alt="" class="comment__item__logo">
+                                    <div class="comment__item__text">
+                                        <span class="textarea" id-value = "<%=post._id%>" role="textbox" contenteditable></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="comment-container">
                             <div class="comment__list hidden">
                                 <div class="comment__item">
@@ -183,16 +193,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="input-comment hidden">
-                            <div class="comment__item">
-                                <div class="comment__item__wrap">
-                                    <img src="<%=locals.userInfo.image%>" alt="" class="comment__item__logo">
-                                    <div class="comment__item__text">
-                                        <span class="textarea" role="textbox" contenteditable></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
             <% })} %> 
            
@@ -373,11 +374,11 @@
                 })
         })
          
-        $(".comment-ajax").click(function(){
-            let element = $(this);
-            let container = element.parent().next(".comment-container");
-            $.post("/comment", {id: element.attr("id-value")})
+        // get + render Comments
+        const getComments = (element) => {
+            $.get("/comment", {id: element.attr("id-value")})
                 .done(datas => {
+                    let container = element.parent().parent().children(".comment-container");
                     if(datas[0]) {
                         var html = datas.map( data => `
                         <div class="comment__list">
@@ -400,13 +401,35 @@
                             </div>
                         `).join("");
                         container.html(html);
+                        console.log(container);
+                        element.children(".count-comment").text(datas.length);
                     }
-                    container.next(".input-comment").removeClass("hidden");
-                    $(".comment-ajax").unbind();
-
+                    container.prev(".input-comment").removeClass("hidden");
                 })
-                .fail(error => console.log(error))
+        }
+
+        $(".comment-ajax").click(function(){
+            let element = $(this);
+            getComments(element);
         })
+
+        $(".textarea").keyup(function (e) {
+            let element = $(this);
+            console.log();
+            if(e.keyCode === 13 && element.text().trim() !== "" ) {
+                $.post("/comment", {id: element.attr("id-value"), content: element.text().trim()})
+                    .done(datas => {
+                        if(datas && !datas.err) {
+                            let elementAjax= element.parents(".widget-box").find(".comment-ajax");
+                            console.log(datas);
+                            element.text('');
+                            getComments(elementAjax);
+                        }
+                    })
+                    .fail(error => console.log(error))
+            }
+        })
+
     })
 
 </script>

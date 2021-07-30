@@ -15,21 +15,17 @@ const posts = new mongoose.Schema(
             type: String,
             maxLength: 1000,
         },
-        comments : {
-            type: Array,
-            default: [],
-        },
-        react: [mongoose.Schema.Types.ObjectId],
-        comment: [{
-            idUser: {
+        comments : [{
+            userId: {
                 type: mongoose.Schema.ObjectId,
             },
             content: String,
             createdAt: { 
                 type: Date,
-                default: Date.now 
+                default: Date.now
             }
-        }]
+        }],
+        react: [mongoose.Schema.Types.ObjectId],
     },
     {
         timestamps: true,

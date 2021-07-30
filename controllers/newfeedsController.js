@@ -32,7 +32,6 @@ class newfeedsController {
                     continue;
                 }
             }
-            
             res.render("newsfeed/newsfeedlayout", {
                 layout: "index",
                 title: "Home",
@@ -47,7 +46,7 @@ class newfeedsController {
         }
     }
     // [POST] /like
-    async handelLike(req, res, next) {
+    async handleLike(req, res, next) {
         if( req.body.id ) {
             var post = await Posts.findOne({_id: req.body.id},['react']);
             var HaveUserId = post.react.find( (idPost) => req.session.userInfo._id == idPost);
@@ -72,10 +71,10 @@ class newfeedsController {
         }
 
     }
-    // [POST] /comment
-    async handelAddComment(req, res, next) {
-        if( req.body.id ) {
-            var post = await Posts.findOne({_id: req.body.id},['comments']).sort({
+    // [GET] /comment
+    async handleShowComment(req, res, next) {
+        if( req.query.id ) {
+            var post = await Posts.findOne({_id: req.query.id},['comments']).sort({
                 "comments.createdAt": -1
             });
             if ( !post ){ //No found any post
@@ -86,16 +85,15 @@ class newfeedsController {
             } else //Have comments in post
             {
                 var post = post.toObject();
-                let listPromise = []
-                // res.json(post.comments);
+                let listPromise = [];
                 for(let comment of post.comments) {
                     listPromise.push(Users.findOne({_id: comment.userId}, ["name", "image"]));
                 }
                 Promise.all(listPromise)
                     .then(datas => {
-                        let timeNow = new Date()
+                        let timeNow = new Date();
                         var result = post.comments.map((comment) => {
-                            var x = datas.find(data => data._id == comment.userId );
+                            let x = datas.find(data => data._id.toString() == comment.userId.toString());
                             comment.name = x.name; 
                             comment.image = x.image;
                             comment.timeAgo = convertTime(timeNow, Date.parse(comment.createdAt));
@@ -112,8 +110,37 @@ class newfeedsController {
         //  })
     }
 
+    //[POST] /comment
+
+    async handleAddComment(req, res, next) {
+        if(req.body.id) {
+            var post = await Posts.findById(req.body.id);
+            if(post){
+                let comment = {
+                    userId: req.session.userInfo._id,
+                    content: req.body.content
+                }
+                post.comments.push(comment);
+                post.save( err => {
+                    if(err) 
+                         res.json({err: "Unknown Error"})
+                    else
+                        res.json({err: false});
+
+                } );
+            }
+            else {
+                res.json({err: "Unknown Error"});
+            }
+        }
+        else {
+            res.json({err: "Unknown Error"});
+        }
+    }
+
+    
     // [GET] /detailLiked
-    async handelDeitailLiked(req, res, next) {
+    async handleDeitailLiked(req, res, next) {
         let post = await Posts.findById(req.query.id);
         if (post) {
             let promiseAll = [];
