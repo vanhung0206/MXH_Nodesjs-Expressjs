@@ -2,7 +2,7 @@ const Posts = require("../models/post")
 const Users = require("../models/users")
 const convertTime = require("../dao/timeAgo");
 const { json } = require("express");
-
+const insertImage = require("../dao/insertImage.js")
 class newfeedsController {
 
     // [GET] /
@@ -153,6 +153,43 @@ class newfeedsController {
         } else {
             res.json({err: "Unknown Error"});
         }
+    }
+
+    // [POST] /post
+    handleAddPost(req, res, next) {
+        if (req.files && Object.keys(req.files).length !== 0 ) {
+            insertImage(req, "posts", (err, path)=> {
+                if (err) {
+                    res.json(err);
+                } else {
+                    let post = new Posts({
+                        idUser: req.session.userInfo._id,
+                        content: req.body.content,
+                        image: path,
+                    })
+                    post.save(err => {
+                        if (err) {
+                            res.json({err})
+                        } else {
+                            res.redirect("/");
+                        }
+                    })
+                }
+            })
+        } else {
+            let post = new Posts({
+                idUser: req.session.userInfo._id,
+                content: req.body.content
+            })
+            post.save(err => {
+                if (err) {
+                    res.json({err})
+                } else {
+                    res.redirect("/");
+                }
+            })
+        }
+
     }
 }
 

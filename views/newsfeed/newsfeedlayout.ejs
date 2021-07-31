@@ -15,7 +15,7 @@
             </p>
         </div>
     </div>
-    <div class="news grid__row">
+    <class class="news grid__row">
         <div class="new-left grid__column-3">
             <div class="newest">
                 <p class="heading">Newest Members</p>
@@ -88,186 +88,211 @@
                 </div>
             </div>
         </div>
-        <div class="new-center grid__column-6">
-            <div class="quick-filter">
-                <p class="quick-filters-tab">All Updates</p>
-                <div class="quick-filters-form">
-                    <span class="show">Show</span>
-                    <select name="" id="">
-                        <option value="Everything">Everything</option>
-                        <option value="Status">Status</option>
-                        <option value="Share">Share</option>
-                        <option value="Media">Media</option>
-                    </select>
+       
+            
+            <div class="new-center grid__column-6">
+                <form class="new-post" action="/post" method="POST" enctype="multipart/form-data">
+                    <div class="create-post">
+                        <div class="user-status__avatar">
+                            <img src="<%=locals.userInfo.image%>" alt="">
+                        </div>
+                        <span value="12345" role="textbox" contenteditable class="create-post-btn"></span>
+                        <input type="text" name="content" value="" class="input-content-post hidden">
+                    </div>
+                    <div class="post-img-show">
+                        <img style="max-width: 100%" src="" alt="">
+                    </div>
+                    <div class="post-footer hidden">
+                        <label for="btn-post-add-image" class="btn-add-image">
+                            <i class="far fa-images"></i> <span>Add Image</span> 
+                        </label>
+                        <input name="image" type="file" hidden accept="image/*" id="btn-post-add-image">
+                        <div class="add-post">
+                            <label for="input-form-submit" class="btn-add-post">POST</label>
+                            <input type="submit"  id="input-form-submit" class="hidden">
+                        </div>
+                    </div>
+                </form>
+                <div class="quick-filter">
+                    <p class="quick-filters-tab">All Updates</p>
+                    <div class="quick-filters-form">
+                        <span class="show">Show</span>
+                        <select name="" id="">
+                            <option value="Everything">Everything</option>
+                            <option value="Status">Status</option>
+                            <option value="Share">Share</option>
+                            <option value="Media">Media</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <% if(locals.posts && locals.posts[0]) { 
-                posts.forEach( post => { %>
-                    <div class="widget-box media" >
-                        <div class="widget-box-status">
-                            <div class="user-status">
-                                <div class="user-status__avatar">
-                                    <img
-                                        src="<%=post.imgUser%>"
-                                        alt=""
-                                    />
+                <% if(locals.posts && locals.posts[0]) { 
+                    posts.forEach( post => { %>
+                        <div class="widget-box media" >
+                            <div class="widget-box-status">
+                                <div class="user-status">
+                                    <div class="user-status__avatar">
+                                        <img
+                                            src="<%=post.imgUser%>"
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div class="user-status__info">
+                                        <span class="user-status__info-name">
+                                            <a href=""><%=post.name%></a>
+                                            posted an update
+                                        </span>
+                                        <p class="user-status__info-time"><%=post.ago%></p>
+                                    </div>
                                 </div>
-                                <div class="user-status__info">
-                                    <span class="user-status__info-name">
-                                        <a href=""><%=post.name%></a>
-                                        posted an update
-                                    </span>
-                                    <p class="user-status__info-time"><%=post.ago%></p>
+                                <p class="user-status-text"><%=post.content%></p>
+                            </div>
+                            <%if(post.image){ %>
+                                <img
+                                    style="max-width: 100%"
+                                    src="<%=post.image%>"
+                                    alt=""
+                                />
+                            <% } %>
+                            <div class="content-actions">
+                                <div class="content-action content-action__react <% if(post.isLike == 1) { %> color-blue  <% } %>  ">
+                                    <div class="content-action-icon-like like-ajax" value-id="<%=post._id%>">
+                                        <i class="far fa-thumbs-up"></i>
+                                        <span class="content-action-text">React</span>
+                                    </div>
+                                    <span  class="content-action-count count-liked"><%=post.react.length%></span>
+                                </div>
+                                <div class="content-action comment-ajax" id-value=<%=post._id%> >
+                                    <i class="far fa-comment-alt"></i>
+                                    <span class="content-action-text">Comment</span>
+                                    <span class="content-action-count count-comment"><%=post.comments.length%></span>
+                                </div>
+                                <div class="content-action">
+                                    <i class="fas fa-share"></i>
+                                    <span class="content-action-text">Share</span>
                                 </div>
                             </div>
-                            <p class="user-status-text"><%=post.content%></p>
+                            <div class="input-comment hidden">
+                                <div class="comment__item">
+                                    <div class="comment__item__wrap">
+                                        <img src="<%=locals.userInfo.image%>" alt="" class="comment__item__logo">
+                                        <div class="comment__item__text">
+                                            <span class="textarea" id-value = "<%=post._id%>" role="textbox" contenteditable></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment-container">
+                                <div class="comment__list hidden">
+                                    <div class="comment__item">
+                                        <div class="comment__item__wrap">
+                                            <img src="<%=locals.userInfo.image%>" alt="" class="comment__item__logo">
+                                            <div class="comment__item__text">
+                                                <a href class="comment__item__text__heading">
+                                                    Nguyễn Văn Hưng
+                                                </a>
+                                                <span class="comment__item__text__content">
+                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <span class="comment__item__time">
+                                            1 second ago
+                                        </span>
+                                    </div>
+                                    <div class="comment__item">
+                                        <div class="comment__item__wrap">
+                                            <img src="<%=locals.userInfo.image%>" alt="" class="comment__item__logo">
+                                            <div class="comment__item__text">
+                                                <a class="comment__item__text__heading">
+                                                    Nguyễn Văn Hưng
+                                                </a>
+                                                <span class="comment__item__text__content">
+                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <span class="comment__item__time">
+                                            1 second ago
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </div>
-                        <%if(post.image){ %>
+                <% })} %> 
+               
+            </div>
+            <div class="new-right grid__column-3">
+                <div class="newest">
+                    <p class="heading">Popular Groups</p>
+                    <div class="user">
+                        <div class="user-info">
                             <img
-                                style="max-width: 100%"
-                                src="<%=post.image%>"
+                                src="/images/baseimg/125567116_10222037693864792_3083228917287898622_o.jpg"
                                 alt=""
+                                class="user-info__img-1"
                             />
-                        <% } %>
-                        <div class="content-actions">
-                            <div class="content-action content-action__react <% if(post.isLike == 1) { %> color-blue  <% } %>  ">
-                                <div class="content-action-icon-like like-ajax" value-id="<%=post._id%>">
-                                    <i class="far fa-thumbs-up"></i>
-                                    <span class="content-action-text">React</span>
-                                </div>
-                                <span  class="content-action-count count-liked"><%=post.react.length%></span>
-                            </div>
-                            <div class="content-action comment-ajax" id-value=<%=post._id%> >
-                                <i class="far fa-comment-alt"></i>
-                                <span class="content-action-text">Comment</span>
-                                <span class="content-action-count count-comment"><%=post.comments.length%></span>
-                            </div>
-                            <div class="content-action">
-                                <i class="fas fa-share"></i>
-                                <span class="content-action-text">Share</span>
+                            <div class="user-info__list">
+                                <a class="user-info__list-name"
+                                    >UIT K13 (Khóa 2018)</a
+                                >
+                                <p class="user-info__list-status">4000 members</p>
                             </div>
                         </div>
-                        <div class="input-comment hidden">
-                            <div class="comment__item">
-                                <div class="comment__item__wrap">
-                                    <img src="<%=locals.userInfo.image%>" alt="" class="comment__item__logo">
-                                    <div class="comment__item__text">
-                                        <span class="textarea" id-value = "<%=post._id%>" role="textbox" contenteditable></span>
-                                    </div>
-                                </div>
+                        <div class="user-info">
+                            <img
+                                src="/images/baseimg/117251156_780671119335149_3490588943834725576_o copy.jpg"
+                                alt=""
+                                class="user-info__img-1"
+                            />
+                            <div class="user-info__list">
+                                <a class="user-info__list-name"> We are one!!! </a>
+                                <p class="user-info__list-status">37 members</p>
                             </div>
                         </div>
-                        <div class="comment-container">
-                            <div class="comment__list hidden">
-                                <div class="comment__item">
-                                    <div class="comment__item__wrap">
-                                        <img src="<%=locals.userInfo.image%>" alt="" class="comment__item__logo">
-                                        <div class="comment__item__text">
-                                            <a href class="comment__item__text__heading">
-                                                Nguyễn Văn Hưng
-                                            </a>
-                                            <span class="comment__item__text__content">
-                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <span class="comment__item__time">
-                                        1 second ago
-                                    </span>
-                                </div>
-                                <div class="comment__item">
-                                    <div class="comment__item__wrap">
-                                        <img src="<%=locals.userInfo.image%>" alt="" class="comment__item__logo">
-                                        <div class="comment__item__text">
-                                            <a class="comment__item__text__heading">
-                                                Nguyễn Văn Hưng
-                                            </a>
-                                            <span class="comment__item__text__content">
-                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <span class="comment__item__time">
-                                        1 second ago
-                                    </span>
-                                </div>
+                        <div class="user-info">
+                            <img
+                                src="/images/baseimg/jeshoots-com-250229-unsplash-584x389.jpg"
+                                alt=""
+                                class="user-info__img-1"
+                            />
+                            <div class="user-info__list">
+                                <a class="user-info__list-name"
+                                    >Gaming Video Creator</a
+                                >
+                                <p class="user-info__list-status">10 members</p>
                             </div>
                         </div>
-                        
-                    </div>
-            <% })} %> 
-           
-        </div>
-        <div class="new-right grid__column-3">
-            <div class="newest">
-                <p class="heading">Popular Groups</p>
-                <div class="user">
-                    <div class="user-info">
-                        <img
-                            src="/images/baseimg/125567116_10222037693864792_3083228917287898622_o.jpg"
-                            alt=""
-                            class="user-info__img-1"
-                        />
-                        <div class="user-info__list">
-                            <a class="user-info__list-name"
-                                >UIT K13 (Khóa 2018)</a
-                            >
-                            <p class="user-info__list-status">4000 members</p>
+                        <div class="user-info">
+                            <img
+                                src="/images/baseimg/118715108_338880747261111_5322256351393249662_n.jpg"
+                                alt=""
+                                class="user-info__img-1"
+                            />
+                            <div class="user-info__list">
+                                <a class="user-info__list-name"
+                                    >Bộ tộc Mixigaming</a
+                                >
+                                <p class="user-info__list-status">6000 members</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="user-info">
-                        <img
-                            src="/images/baseimg/117251156_780671119335149_3490588943834725576_o copy.jpg"
-                            alt=""
-                            class="user-info__img-1"
-                        />
-                        <div class="user-info__list">
-                            <a class="user-info__list-name"> We are one!!! </a>
-                            <p class="user-info__list-status">37 members</p>
-                        </div>
-                    </div>
-                    <div class="user-info">
-                        <img
-                            src="/images/baseimg/jeshoots-com-250229-unsplash-584x389.jpg"
-                            alt=""
-                            class="user-info__img-1"
-                        />
-                        <div class="user-info__list">
-                            <a class="user-info__list-name"
-                                >Gaming Video Creator</a
-                            >
-                            <p class="user-info__list-status">10 members</p>
-                        </div>
-                    </div>
-                    <div class="user-info">
-                        <img
-                            src="/images/baseimg/118715108_338880747261111_5322256351393249662_n.jpg"
-                            alt=""
-                            class="user-info__img-1"
-                        />
-                        <div class="user-info__list">
-                            <a class="user-info__list-name"
-                                >Bộ tộc Mixigaming</a
-                            >
-                            <p class="user-info__list-status">6000 members</p>
-                        </div>
-                    </div>
-                    <div class="user-info">
-                        <img
-                            src="/images/baseimg/tinh-gia.jpg"
-                            alt=""
-                            class="user-info__img-1"
-                        />
-                        <div class="user-info__list">
-                            <a class="user-info__list-name">
-                                THPT Tĩnh Gia II
-                            </a>
-                            <p class="user-info__list-status">42 members</p>
+                        <div class="user-info">
+                            <img
+                                src="/images/baseimg/tinh-gia.jpg"
+                                alt=""
+                                class="user-info__img-1"
+                            />
+                            <div class="user-info__list">
+                                <a class="user-info__list-name">
+                                    THPT Tĩnh Gia II
+                                </a>
+                                <p class="user-info__list-status">42 members</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+    </class>
     </div>
 </div>
 
@@ -322,17 +347,16 @@
         // handle like, unlike
         $(".like-ajax").click(function(){
             const element = $(this);
+            const elementLike = element.parent()
             const id = $(this).attr("value-id");
             $.post("/like", { id  })
                 .done( data => {
-                    // element.next().text(data);
-                    // element.removeClass("like-ajax").addClass("unlike-ajax");
+                    
                     if(data.isLiked == 1) {
-                        console.log($(".content-action.content-action__react"));
-                        $(".content-action.content-action__react").addClass("color-blue");
+                        elementLike.addClass("color-blue");
                         
                     } else {
-                        $(".content-action.content-action__react").removeClass("color-blue");
+                        elementLike.removeClass("color-blue");
                     }
                     element.next().text(data.countLike);
                     console.log(data);
@@ -407,15 +431,18 @@
                     container.prev(".input-comment").removeClass("hidden");
                 })
         }
-
+        // ajax show comments
         $(".comment-ajax").click(function(){
             let element = $(this);
             getComments(element);
+            setInterval(()=> {
+                getComments(element);
+            }, 900)
         })
-
+        // ajax add comments
         $(".textarea").keyup(function (e) {
             let element = $(this);
-            console.log();
+            
             if(e.keyCode === 13 && element.text().trim() !== "" ) {
                 $.post("/comment", {id: element.attr("id-value"), content: element.text().trim()})
                     .done(datas => {
@@ -429,6 +456,46 @@
                     .fail(error => console.log(error))
             }
         })
+
+        // handle add image post
+        const file = document.querySelector("#btn-post-add-image");
+        file.addEventListener("change", (e) => {
+            // Get the selected file
+            const file1 = e.target.files;
+            const [file] = e.target.files;
+            let imgAvatar = document.querySelector(".post-img-show img");
+            let typeFile = file.type.split("/").shift();
+            if (typeFile === "image") {
+                imgAvatar.src = URL.createObjectURL(file);
+                $(".add-post").addClass("btn-active");
+            }
+        });
+        $(".create-post-btn").focus(function(e) {
+            let element = $(this); 
+            let elementParent = element.parents(".new-post");
+            let elementHidden =  elementParent.find(".post-footer");
+            elementHidden.removeClass("hidden");
+        })
+
+
+        $(".create-post-btn").keyup(function(e) {
+            let element = $(this); 
+            $(".input-content-post").attr("value",element.text().trim())
+            let elementParent = element.parents(".new-post");
+            let elementHidden =  elementParent.find(".add-post");
+            if(element.text().trim() !== "") {
+                elementHidden.addClass("btn-active");
+            } else {
+                elementHidden.removeClass("btn-active");
+            }
+        })
+        // $(".create-post-btn").focusout(function(e) {
+        //     let element = $(this); 
+        //     let elementParent = element.parents(".new-post");
+        //     let elementHidden =  elementParent.find(".post-footer");
+        //     elementHidden.addClass("hidden");
+        //     console.log(elementParent);
+        // })
 
     })
 

@@ -9,7 +9,7 @@ const posts = new mongoose.Schema(
         },
         type: {
             type: String,
-            default: 0,
+            default: "post",
         },
         image: {
             type: String,
