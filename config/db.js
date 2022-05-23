@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/socialNetwork";
 function connect() {
-    mongoose.connect("mongodb://localhost/socialnetwork", {
+    mongoose.connect(mongoUrl, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });

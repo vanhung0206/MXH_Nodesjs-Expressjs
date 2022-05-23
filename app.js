@@ -1,4 +1,3 @@
-
 // Middleware
 var createError = require("http-errors");
 var express = require("express");
@@ -8,14 +7,12 @@ var logger = require("morgan");
 var expressLayouts = require("express-ejs-layouts");
 var session = require("express-session");
 const MongoStore = require("connect-mongo");
-const fileUpload = require('express-fileupload');
+const fileUpload = require("express-fileupload");
 const nodemailer = require("nodemailer");
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv')
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
 var authMiddleware = require("./midderware/authentication");
 dotenv.config();
-
-
 
 // Variable
 var indexRouter = require("./routes/index");
@@ -28,7 +25,7 @@ var logoutRouter = require("./routes/logout");
 var meRouter = require("./routes/me");
 var verifyRouter = require("./routes/verify");
 
-
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/socialnetwork";
 
 // connect db
 var db = require("./config/db");
@@ -42,7 +39,7 @@ app.use(
         resave: false,
         saveUninitialized: true,
         store: MongoStore.create({
-            mongoUrl: "mongodb://localhost/socialnetwork",
+            mongoUrl: mongoUrl,
         }),
         cookie: { secure: false, maxAge: 300000000 },
     })
@@ -58,11 +55,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(fileUpload({
-    limits: { fileSize: 50 * 1024 * 1024 },
-  }));
-
-
+app.use(
+    fileUpload({
+        limits: { fileSize: 50 * 1024 * 1024 },
+    })
+);
 
 app.use("/login", loginRouter);
 app.use("/verify", verifyRouter);

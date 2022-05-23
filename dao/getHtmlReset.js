@@ -1,9 +1,12 @@
-module.exports = function(name , link) {
+const baseURL = process.env.BASE_URL || "http://127.0.0.1:3000";
+const port = parseInt(process.env.PORT || 3000);
+const domain = baseURL + ":" + port;
+module.exports = function (name, link) {
     return `
     <table width="580" class="m_5739889038515235559deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">
     <tbody><tr>
       <td valign="top" align="center" style="padding:0" bgcolor="#ffffff">
-        <a href="http://127.0.0.1:3000" target="_blank">
+        <a href="${domain}" target="_blank">
           <img class="m_5739889038515235559deviceWidth CToWUd" src="https://lh3.googleusercontent.com/yxezsb6C9SfKgHd0EcCpyZ7z5TyiUgE5XHRA5TXAcFu5RoVC6GpEf_3eyCXsbIWwVJBfSM6b08UX4fsWtLuTD7jOUztqhIET16F8uPuyQqy8_LTmhF822po-a_VSD2r8y-rea_TgBg=s40-p-k?source=screenshot.guru" alt="" border="0" width="125" style="display:block">
         </a>
       </td>
@@ -26,5 +29,5 @@ module.exports = function(name , link) {
               
         </tr>
   </tbody></table>
-    `
-}
+    `;
+};
