@@ -1,6 +1,6 @@
-const baseURL = process.env.BASE_URL || "http://127.0.0.1:3000";
-const port = parseInt(process.env.PORT || 3000);
-const domain = baseURL + ":" + port;
+// const baseURL = process.env.BASE_URL || "http://127.0.0.1:3000";
+// const port = parseInt(process.env.PORT || 3000);
+const domain = process.env.DOMAIN || "http://127.0.0.1:3000";
 module.exports = function (name, link) {
     return `
     <table width="580" class="m_5739889038515235559deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" style="border-collapse:collapse;margin:0 auto">

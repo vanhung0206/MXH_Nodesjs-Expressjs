@@ -5,9 +5,7 @@ const { getToken, verifyToken } = require("../dao/token");
 var setHtml = require("../dao/getHtml");
 var getHtmlReset = require("../dao/getHtmlReset");
 const { encode, decode } = require("../dao/bcryptPassword");
-const baseURL = process.env.BASE_URL || "http://127.0.0.1:3000";
-const port = parseInt(process.env.PORT || 3000);
-const domain = baseURL + ":" + port;
+const domain = process.env.DOMAIN || "http://127.0.0.1:3000";
 // var session = require("express-session");
 
 function sendmail(tomail, heading, contents, callback) {
