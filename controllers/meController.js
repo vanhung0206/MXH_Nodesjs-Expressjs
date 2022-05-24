@@ -91,7 +91,7 @@ class meController {
             tempPath.pop();
             tempPath.push("public", "images", "avatars");
             tempPath = tempPath.join("\\");
-            uploadPath = tempPath + "/" + sampleFile.name;
+            uploadPath = tempPath + "\\" + sampleFile.name;
             sampleFile.mv(uploadPath, function (err) {
                 console.log(
                     "🚀 ~ file: meController.js ~ line 96 ~ meController ~ uploadPath",
