@@ -16,9 +16,7 @@
         "express-ejs-layouts": "^2.5.1",
         "http-errors": "~1.6.3",
         "morgan": "~1.9.1",
-        "nodemon": "^2.0.16"
-    },
-    "devDependencies": {
+        "nodemon": "^2.0.16",
         "bcryptjs": "^2.4.3",
         "connect-mongo": "^4.4.1",
         "dotenv": "^10.0.0",
