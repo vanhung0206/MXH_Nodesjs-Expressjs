@@ -85,6 +85,10 @@ class meController {
     update(req, res, next) {
         let sampleFile;
         let uploadPath;
+        console.log(
+            "🚀 ~ file: meController.js ~ line 90 ~ meController ~ update ~ req.files",
+            req.files
+        );
         if (req.files && Object.keys(req.files).length !== 0) {
             sampleFile = req.files.image;
             var tempPath = __dirname.split("\\");
