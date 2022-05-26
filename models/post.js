@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-mongoose.set('useFindAndModify', false);
+mongoose.set("useFindAndModify", false);
 
 const posts = new mongoose.Schema(
     {
@@ -13,18 +13,19 @@ const posts = new mongoose.Schema(
         },
         image: {
             type: String,
-            maxLength: 1000,
         },
-        comments : [{
-            userId: {
-                type: mongoose.Schema.ObjectId,
+        comments: [
+            {
+                userId: {
+                    type: mongoose.Schema.ObjectId,
+                },
+                content: String,
+                createdAt: {
+                    type: Date,
+                    default: Date.now,
+                },
             },
-            content: String,
-            createdAt: { 
-                type: Date,
-                default: Date.now
-            }
-        }],
+        ],
         react: [mongoose.Schema.Types.ObjectId],
     },
     {

@@ -1,21 +1,17 @@
+module.exports = function (req, nameFolder, callback) {
+    // let uploadPath;
 
-
-module.exports = function(req, nameFolder , callback) {
-    let sampleFile;
-    let uploadPath;
-    sampleFile = req.files.image;
-    var tempPath = __dirname.split("\\")
-    tempPath.pop();
-    tempPath.push("public","images", nameFolder);
-    tempPath = tempPath.join("\\");
-    uploadPath =  tempPath + "/"+ sampleFile.name;
     if (req.files && Object.keys(req.files).length !== 0) {
-        sampleFile.mv(uploadPath, err => {
-            var pathShow = `/images/${nameFolder}/${sampleFile.name}`;
-            callback(err, pathShow );
-        });
+        try {
+            const sampleFile = req.files.image;
+            const dataString = sampleFile.data.toString("base64");
+            const dataImage = `data:${sampleFile.mimetype};base64,${dataString}`;
+            callback(false, dataImage);
+        } catch (e) {
+            callback(e, "");
+            console.log("🚀 ~ file: insertImage.js ~ line 12 ~ e", e);
+        }
     } else {
-        var pathShow = "";
-        callback("No file Upload", pathShow)
+        callback("No file Upload", "");
     }
-}
+};
