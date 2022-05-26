@@ -1,10 +1,12 @@
 const { json } = require("express");
 const { copyFileSync } = require("fs");
 const { request } = require("https");
-var path = require("path");
+const path = require("path");
+const mime = require("mime-types");
 const { encode, decode } = require("../dao/bcryptPassword");
 const users = require("../models/users");
 const usersModal = require("../models/users");
+const randomString = require("../dao/randomString.js");
 
 class meController {
     // [GET] /me/edit
@@ -85,32 +87,14 @@ class meController {
     update(req, res, next) {
         let sampleFile;
         let uploadPath;
-        console.log(
-            "🚀 ~ file: meController.js ~ line 90 ~ meController ~ update ~ req.files",
-            req.files
-        );
-        if (req.files && Object.keys(req.files).length !== 0) {
-            sampleFile = req.files.image;
-            var tempPath = __dirname.split("\\");
-            tempPath.pop();
-            tempPath.push("public", "images", "avatars");
-            tempPath = tempPath.join("\\");
-            uploadPath = tempPath + "\\" + sampleFile.name;
-            sampleFile.mv(uploadPath, function (err) {
-                console.log(
-                    "🚀 ~ file: meController.js ~ line 96 ~ meController ~ uploadPath",
-                    uploadPath
-                );
-                if (err) {
-                    console.log(
-                        "🚀 ~ file: meController.js ~ line 97 ~ meController ~ err",
-                        err
-                    );
-                    return res.json({ err: "Unknow Error" });
-                }
+
+        if (req?.files?.image && Object.keys(req.files).length !== 0) {
+            try {
+                sampleFile = req.files.image;
+                const dataString = sampleFile.data.toString("base64");
+                const dataImage = `data:${sampleFile.mimetype};base64,${dataString}`;
                 req.session.userInfo = req.body;
-                req.session.userInfo.image =
-                    "/images/avatars/" + sampleFile.name;
+                req.session.userInfo.image = dataImage;
                 req.session.save((err) => {
                     usersModal
                         .findOneAndUpdate(
@@ -131,7 +115,55 @@ class meController {
                         })
                         .catch((err) => res.json({ err: "Unknow Error" }));
                 });
-            });
+            } catch (e) {
+                console.log(
+                    "🚀 ~ file: meController.js ~ line 93 ~ meController ~ update ~ e",
+                    e
+                );
+            }
+
+            // var tempPath = __dirname.split("\\");
+            // tempPath.pop();
+            // tempPath.push("public", "images", "avatars");
+            // tempPath = tempPath.join("\\");
+            // uploadPath = tempPath + "\\" + sampleFile.name;
+
+            // sampleFile.mv(uploadPath, function (err) {
+            //     console.log(
+            //         "🚀 ~ file: meController.js ~ line 96 ~ meController ~ uploadPath",
+            //         uploadPath
+            //     );
+            //     if (err) {
+            //         console.log(
+            //             "🚀 ~ file: meController.js ~ line 97 ~ meController ~ err",
+            //             err
+            //         );
+            //         return res.json({ err: "Unknow Error" });
+            //     }
+            //     req.session.userInfo = req.body;
+            //     req.session.userInfo.image =
+            //         "/images/avatars/" + sampleFile.name;
+            //     req.session.save((err) => {
+            //         usersModal
+            //             .findOneAndUpdate(
+            //                 { email: req.body.email },
+            //                 req.session.userInfo,
+            //                 { new: true }
+            //             )
+            //             .then((data) => {
+            //                 req.session.userInfo = data;
+            //                 req.session.save(function (err) {
+            //                     res.locals.userInfo = data;
+            //                     res.render("me/editlayout", {
+            //                         layout: "index",
+            //                         title: "me",
+            //                         success: true,
+            //                     });
+            //                 });
+            //             })
+            //             .catch((err) => res.json({ err: "Unknow Error" }));
+            //     });
+            // });
         } else {
             usersModal
                 .findOneAndUpdate({ email: req.body.email }, req.body, {
